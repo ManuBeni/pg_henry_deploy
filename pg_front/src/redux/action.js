@@ -21,12 +21,10 @@ import {
   REMOVE_DUPLICATES_CART,
 } from "./const";
 
-const URL = "http://localhost:4000";
-
 export function signUp(body) {
   return async function (dispatch) {
     try {
-      let user = await axios.post(`${URL}/api/login`, body);
+      let user = await axios.post(`/api/login`, body);
       //user.data.expire = new(new Date().getTime() + user.data.expire)
       localStorage.setItem(`userDetails`, JSON.stringify(user.data));
       return dispatch({
@@ -51,7 +49,7 @@ export function signUp(body) {
 export function getProduct() {
   return async function (dispatch) {
     try {
-      let res = await axios.get(`${URL}/api/products`);
+      let res = await axios.get(`/api/product`);
       console.log("Products", res.data);
       return dispatch({
         type: GET_PRODUCTS,
@@ -66,7 +64,7 @@ export function getProduct() {
 export function searchProduct(payload) {
   return async function (dispatch) {
     try {
-      var product = await axios.get(`${URL}/api/products?title=${payload}`, {});
+      var product = await axios.get(`/api/product?title=${payload}`, {});
       return dispatch({
         type: SEARCH_PRODUCT,
         payload: product.data,
@@ -88,7 +86,7 @@ export function createProduct(body) {
   body.stock = parseInt(body.stock);
   return async function (dispatch) {
     try {
-      let newProduct = await axios.post(`${URL}/api/product`, body);
+      let newProduct = await axios.post(`/api/product`, body);
       console.log(newProduct.data);
       return dispatch({
         type: CREATE_PRODUCT,
@@ -153,7 +151,7 @@ export function detailProduct(id) {
   console.log(id);
   return async function (dispatch) {
     try {
-      var product = await axios.get(`${URL}/api/product/${id}`);
+      var product = await axios.get(`/api/product/${id}`);
       console.log(product);
       return dispatch({
         type: DETAIL_PRODUCT,
@@ -169,7 +167,7 @@ export function detailProduct(id) {
 export function checkLogin(token, id) {
   return async function (dispatch) {
     try {
-      let user = await axios.get(`${URL}/api/user/${id}`, {
+      let user = await axios.get(`/api/user/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
