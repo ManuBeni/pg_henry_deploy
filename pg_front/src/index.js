@@ -9,7 +9,7 @@ import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider, createTheme } from "@mui/material";
 import axios from "axios";
 
-axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3000";
+axios.defaults.baseURL = "https://pg-sports.herokuapp.com" || "http://localhost:3000";
 
 const theme = createTheme({
   palette: {
